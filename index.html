@@ -146,7 +146,7 @@
                 <p id="mensaje-aforo" class="destacado">Cargando tus pases asignados...</p>
             </div>
 
-            <form name="rsvp-terraza" method="POST" data-netlify="true" action="/" class="formulario-rsvp">
+            <form name="rsvp-terraza" method="POST" data-netlify="true" class="formulario-rsvp">
                 <input type="hidden" name="form-name" value="rsvp-terraza">
 
                 <div class="form-group">
@@ -166,6 +166,15 @@
                     <label for="personas">Número de asistentes (incluyéndote):</label>
                     <select id="personas" name="personas" required>
                         <!-- Generado automáticamente por script.js según la URL (?pases=X) -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="anfitrion">¿Quién te invitó?</label>
+                    <select id="anfitrion" name="anfitrion" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="faby">Faby</option>
+                        <option value="gloria">Gloria</option>
                     </select>
                 </div>
 
