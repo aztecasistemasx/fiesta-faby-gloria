@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Estás Invitado! · Faby & Gloria</title>
+
+    <!-- Metadatos para compartir por WhatsApp / Facebook / Redes -->
+    <meta property="og:title" content="¡Estás Invitado! 🎉 Celebración de Cumpleaños Faby & Gloria">
+    <meta property="og:description"
+        content="Acompáñanos a celebrar este día tan especial. Conoce los detalles de la fiesta y confirma tu asistencia.">
+    <meta property="og:image" content="Imagenes/fondo.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Tipografías de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Librería de Confeti (CDN ligera) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <!-- Estilos de la Invitación -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 1. Pantalla de Bienvenida / Apertura de Sobre -->
+    <div id="pantalla-ingreso" class="pantalla-ingreso">
+        <div class="portada-card">
+            <span class="subtitulo-apertura">Un día especial</span>
+            <h1 class="titulo-apertura">Nuestra Fiesta</h1>
+            <p class="instruccion-apertura">Toca el botón para abrir la invitación y comenzar la celebración</p>
+            <button id="btn-abrir" class="btn-principal pulse-anim">
+                <span>✉️ Abrir Invitación</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Audio de fondo y control flotante -->
+    <audio id="musica-fondo" loop preload="auto">
+        <source src="P!nk - Raise Your Glass.mp3" type="audio/mpeg">
+        <source src="P!nk - Raise Your Glass.flac" type="audio/flac">
+    </audio>
+
+    <!-- Botón flotante para pausar/reanudar la música -->
+    <button id="btn-musica" class="btn-musica oculto" aria-label="Controlar música" title="Pausar / Reproducir música">
+        <span id="icono-musica">🎵</span>
+    </button>
+
+    <!-- 3. Contenedor Principal de la Invitación -->
+    <main id="contenido-invitacion" class="oculto">
+
+        <!-- Encabezado / Hero -->
+        <header class="glass-container text-center hero-section">
+            <span class="tagline">¡Nos encantaría que nos acompañes!</span>
+            <h1 class="nombres-cumple">Faby & Gloria</h1>
+            <p class="tipo-evento">Nuestra Fiesta!!</p>
+
+            <div class="divisor-decorativo">✨</div>
+
+            <div class="fecha-destacada">
+                <div class="dato-fecha">
+                    <span class="dia-semana">Domingo</span>
+                    <span class="dia-numero">18</span>
+                    <span class="mes-anio">Octubre · 2026</span>
+                </div>
+                <div class="hora">
+                    <span>🕒 3:00 PM</span>
+                </div>
+            </div>
+
+            <!-- Botón Agregar a Calendario -->
+            <a id="btn-calendario" href="#" class="btn-secundario" target="_blank" rel="noopener">
+                📅 Guardar en Google Calendar
+            </a>
+        </header>
+
+        <!-- Cuenta Regresiva -->
+        <section class="glass-container text-center">
+            <div class="icono-seccion">⏳</div>
+            <h2>Faltan Sólo</h2>
+            <div id="cuenta-regresiva" class="grid-contador">
+                <div class="bloque-tiempo"><span id="dias">00</span><label>Días</label></div>
+                <div class="bloque-tiempo"><span id="horas">00</span><label>Horas</label></div>
+                <div class="bloque-tiempo"><span id="minutos">00</span><label>Min</label></div>
+                <div class="bloque-tiempo"><span id="segundos">00</span><label>Seg</label></div>
+            </div>
+        </section>
+
+        <!-- Ubicación -->
+        <section class="glass-container text-center">
+            <div class="icono-seccion">📍</div>
+            <h2>Ubicación</h2>
+            <p class="lugar-nombre"><strong>Terraza para Eventos</strong></p>
+            <p class="lugar-direccion">Rep. de Chile #294, La Capacha, Tlaquepaque</p>
+
+            <div class="acciones-mapa">
+                <a href="https://maps.app.goo.gl/yLDMeGaDTCestrgv8" target="_blank" rel="noopener"
+                    class="btn-secundario">
+                    Ver en Google Maps
+                </a>
+            </div>
+
+            <div class="contenedor-mapa">
+                <!-- Mapa embebido con la ubicación exacta de Terraza para Eventos -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1867.24!2d-103.3161227!3d20.6330255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428b3ededa79213%3A0x9f6af5746c567af5!2sTerraza%20para%20eventos!5e0!3m2!1ses!2smx!4v1727000000000"
+                    width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Código de Vestimenta -->
+        <section class="glass-container text-center">
+            <div class="icono-seccion">👔👗</div>
+            <h2>Código de Vestimenta</h2>
+            <p class="destacado">¡Ven con tu mejor outfit y muchas ganas de bailar!</p>
+        </section>
+
+
+        <!-- Confirmación de Asistencia (RSVP) -->
+        <section class="glass-container">
+            <div class="text-center">
+                <div class="icono-seccion">💌</div>
+                <h2>Confirmación de Asistencia</h2>
+                <p id="mensaje-aforo" class="destacado">Cargando tus pases asignados...</p>
+            </div>
+
+            <form name="rsvp-terraza" method="POST" data-netlify="true" class="formulario-rsvp">
+                <input type="hidden" name="form-name" value="rsvp-terraza">
+
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="asistencia">¿Nos acompañas?</label>
+                    <select id="asistencia" name="asistencia" required>
+                        <option value="si">¡Sí, con mucho gusto asistiré!</option>
+                        <option value="no">Lamentablemente no podré ir</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="grupo-pases">
+                    <label for="personas">Número de asistentes (incluyéndote):</label>
+                    <select id="personas" name="personas" required>
+                        <!-- Generado automáticamente por script.js según la URL (?pases=X) -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">Canción sugerida:</label>
+                    <textarea id="comentarios" name="comentarios" rows="3"
+                        placeholder="Dedicatoria para los festejados o tu canción favorita..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-principal btn-block">Confirmar Asistencia</button>
+            </form>
+        </section>
+
+        <footer class="pie-pagina text-center">
+            <p>¡Te esperamos con toda la actitud para celebrar!</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
