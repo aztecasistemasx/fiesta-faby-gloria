@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0b10">
     <title>¡Estás Invitado! · Faby & Gloria</title>
+    <meta name="description" content="Acompáñanos a celebrar este día tan especial. Conoce los detalles de la fiesta de cumpleaños de Faby & Gloria y confirma tu asistencia.">
+
+    <!-- Favicon para evitar error 404 en consola -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎉</text></svg>">
 
     <!-- Metadatos para compartir por WhatsApp / Facebook / Redes -->
     <meta property="og:title" content="¡Estás Invitado! 🎉 Celebración de Cumpleaños Faby & Gloria">
@@ -35,7 +40,7 @@
             <span class="subtitulo-apertura">Un día especial</span>
             <h1 class="titulo-apertura">Nuestra Fiesta</h1>
             <p class="instruccion-apertura">Toca el botón para abrir la invitación y comenzar la celebración</p>
-            <button id="btn-abrir" class="btn-principal pulse-anim">
+            <button id="btn-abrir" class="btn-principal pulse-anim" onclick="abrirInvitacion()">
                 <span>✉️ Abrir Invitación</span>
             </button>
         </div>
@@ -43,8 +48,10 @@
 
     <!-- 2. Audio de fondo y control flotante -->
     <audio id="musica-fondo" loop preload="auto">
-        <source src="P!nk - Raise Your Glass.mp3" type="audio/mpeg">
-        <source src="P!nk - Raise Your Glass.flac" type="audio/flac">
+        <source src="cancion.mp3" type="audio/mpeg">
+        <source src="cancion.flac" type="audio/flac">
+        <source src="P%21nk%20-%20Raise%20Your%20Glass.mp3" type="audio/mpeg">
+        <source src="P%21nk%20-%20Raise%20Your%20Glass.flac" type="audio/flac">
     </audio>
 
     <!-- Botón flotante para pausar/reanudar la música -->

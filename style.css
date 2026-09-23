@@ -3,8 +3,6 @@
    Optimizado para dispositivos móviles (Efectos y Brillo Implícitos)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
-
 :root {
     --bg-dark: #0a0b10;
     --primary-gold: #e2ba73;
@@ -122,6 +120,7 @@ body::before {
     letter-spacing: 1px;
     background: var(--gold-text-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 14px;
 }
@@ -254,6 +253,7 @@ p {
     line-height: 1.15;
     background: var(--gold-text-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 8px 0 12px;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.7));
@@ -519,6 +519,14 @@ textarea {
 .btn-principal:active {
     transform: scale(0.97);
     filter: brightness(0.95);
+}
+
+.acciones-calendario {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
 }
 
 .btn-secundario {
