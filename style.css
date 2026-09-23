@@ -394,6 +394,39 @@ p {
 }
 
 /* ==========================================================================
+   Banda de Rock en Vivo (Jokers Live Band)
+   ========================================================================== */
+.subtitulo-seccion {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary-gold);
+    margin-bottom: 6px;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(226, 186, 115, 0.3);
+}
+
+.contenedor-logo-banda {
+    margin: 16px auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-banda {
+    max-width: 260px;
+    width: 85%;
+    height: auto;
+    filter: drop-shadow(0 6px 18px rgba(226, 186, 115, 0.35));
+    transition: transform 0.3s ease;
+}
+
+.logo-banda:hover {
+    transform: scale(1.04);
+}
+
+/* ==========================================================================
    Código de Vestimenta y Regalos
    ========================================================================== */
 .nota-dresscode {
