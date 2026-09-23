@@ -6,6 +6,35 @@
 /* ==========================================================================
    1. Apertura Inmediata y Segura (Disponible en Scope Global)
    ========================================================================== */
+function fadeInAudio(audioElement, volumenFinal = 0.85, duracion = 3000) {
+    if (!audioElement) return;
+    try {
+        audioElement.volume = 0;
+        const intervalo = 50; // actualizar cada 50ms
+        const pasos = duracion / intervalo;
+        const incremento = volumenFinal / pasos;
+
+        const fadeTimer = setInterval(() => {
+            if (audioElement.paused) {
+                clearInterval(fadeTimer);
+                return;
+            }
+            try {
+                if (audioElement.volume + incremento >= volumenFinal) {
+                    audioElement.volume = volumenFinal;
+                    clearInterval(fadeTimer);
+                } else {
+                    audioElement.volume = Math.min(volumenFinal, audioElement.volume + incremento);
+                }
+            } catch (e) {
+                clearInterval(fadeTimer);
+            }
+        }, intervalo);
+    } catch (e) {
+        console.warn("Control de volumen no soportado en este dispositivo:", e);
+    }
+}
+
 function abrirInvitacion() {
     const pantallaIngreso = document.getElementById("pantalla-ingreso");
     const contenidoInvitacion = document.getElementById("contenido-invitacion");
@@ -24,23 +53,28 @@ function abrirInvitacion() {
         }, 800);
     }
 
-    // 2. Reproducción de audio protegida (no bloqueante)
+    // 2. Reproducción de audio con incremento gradual de volumen (fade-in)
     if (musica) {
         try {
+            try { musica.volume = 0; } catch (e) {}
+
             const promesaAudio = musica.play();
             if (promesaAudio !== undefined) {
                 promesaAudio.then(() => {
+                    fadeInAudio(musica, 0.85, 3000); // Sube suavemente en 3 segundos
                     if (btnMusica) {
                         btnMusica.classList.remove("oculto");
                         btnMusica.classList.add("reproduciendo");
                     }
                 }).catch((err) => {
                     console.warn("Autoplay pausado por políticas del navegador (se activa con botón):", err);
+                    try { musica.volume = 0.85; } catch (e) {}
                     if (btnMusica) btnMusica.classList.remove("oculto");
                 });
             }
         } catch (err) {
             console.warn("Error al intentar reproducir música:", err);
+            try { musica.volume = 0.85; } catch (e) {}
             if (btnMusica) btnMusica.classList.remove("oculto");
         }
     }
