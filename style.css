@@ -10,7 +10,7 @@
     --primary-gold-glow: rgba(226, 186, 115, 0.4);
     --gold-gradient: linear-gradient(135deg, #f7d998 0%, #d4a359 50%, #b8863b 100%);
     --gold-text-gradient: linear-gradient(135deg, #ffe5a3 0%, #e2ba73 50%, #c49646 100%);
-    --glass-bg: rgba(20, 24, 38, 0.35);
+    --glass-bg: rgba(20, 24, 38, 0.25);
     --glass-border: rgba(226, 186, 115, 0.32);
     --glass-border-highlight: rgba(255, 230, 180, 0.45);
     --glass-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.65), 0 0 25px rgba(226, 186, 115, 0.14);
@@ -93,6 +93,7 @@ body::before {
     background: rgba(25, 30, 48, 0.4);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+    will-change: transform, backdrop-filter;
     border: 1px solid var(--glass-border-highlight);
     border-radius: 24px;
     padding: 45px 30px;
@@ -147,8 +148,9 @@ body::before {
 
 .glass-container {
     background: var(--glass-bg);
-    backdrop-filter: blur(6px) saturate(120%);
-    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    will-change: transform, backdrop-filter;
     /* Borde dorado refinado siempre visible (implícito) */
     border: 1px solid var(--glass-border);
     border-top: 1px solid var(--glass-border-highlight);

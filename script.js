@@ -187,45 +187,40 @@ function inicializarInvitacion() {
     }
 
     // B) Apple / iCloud / iOS Calendar (.ics)
-    const btnAppleCalendario = document.getElementById("btn-apple-calendario");
-    if (btnAppleCalendario) {
-        btnAppleCalendario.addEventListener("click", (e) => {
+    const btnCalendarioIOS = document.getElementById("btn-calendario-ios");
+    if (btnCalendarioIOS) {
+        btnCalendarioIOS.addEventListener("click", (e) => {
             e.preventDefault();
+            
+            // Formato ISO sin guiones ni puntos, en UTC (Z)
+            const formatoICS = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+            
+            // Convertir las fechas a formato ICS
+            const fechaInicioICS = formatoICS(new Date(FECHA_EVENTO.getTime()));
+            const fechaFinICS = formatoICS(new Date(FECHA_EVENTO.getTime() + (5 * 60 * 60 * 1000))); // +5 horas
 
-            const icsLines = [
-                "BEGIN:VCALENDAR",
-                "VERSION:2.0",
-                "PRODID:-//Fiesta Cumpleanos//Faby y Gloria//ES",
-                "CALSCALE:GREGORIAN",
-                "METHOD:PUBLISH",
-                "BEGIN:VEVENT",
-                `DTSTAMP:${formatoCalendario(new Date())}`,
-                `DTSTART:${formatoCalendario(fechaInicio)}`,
-                `DTEND:${formatoCalendario(fechaFin)}`,
-                `SUMMARY:${TITULO_EVENTO}`,
-                `DESCRIPTION:${DETALLES_EVENTO}`,
-                `LOCATION:${LUGAR_EVENTO}`,
-                "STATUS:CONFIRMED",
-                "END:VEVENT",
-                "END:VCALENDAR"
-            ];
-            const icsContent = icsLines.join("\r\n");
+            // Construir el contenido del archivo .ics
+            const icsContent = 
+`BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${fechaInicioICS}
+DTEND:${fechaFinICS}
+SUMMARY:${TITULO_EVENTO}
+DESCRIPTION:${DETALLES_EVENTO}
+LOCATION:${LUGAR_EVENTO}
+END:VEVENT
+END:VCALENDAR`;
 
-            // Detección de dispositivos iOS para descarga directa
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            if (isIOS) {
-                window.location.href = "data:text/calendar;charset=utf8," + encodeURIComponent(icsContent);
-            } else {
-                const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-                const link = document.createElement("a");
-                const url = window.URL.createObjectURL(blob);
-                link.href = url;
-                link.setAttribute("download", "Fiesta_Faby_y_Gloria.ics");
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                setTimeout(() => window.URL.revokeObjectURL(url), 1500);
-            }
+            // Crear un Blob y forzar la descarga del archivo en iOS
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'cumpleanos_faby_gloria.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     }
 
