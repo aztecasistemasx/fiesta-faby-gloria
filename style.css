@@ -398,32 +398,32 @@ p {
    ========================================================================== */
 .subtitulo-seccion {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--primary-gold);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-weight: 600;
     text-shadow: 0 0 10px rgba(226, 186, 115, 0.3);
 }
 
 .contenedor-logo-banda {
-    margin: 16px auto 20px;
+    margin: 8px auto 14px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .logo-banda {
-    max-width: 260px;
-    width: 85%;
+    max-width: 350px;
+    width: 92%;
     height: auto;
-    filter: drop-shadow(0 6px 18px rgba(226, 186, 115, 0.35));
+    filter: drop-shadow(0 6px 20px rgba(226, 186, 115, 0.4));
     transition: transform 0.3s ease;
 }
 
 .logo-banda:hover {
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
 /* ==========================================================================
