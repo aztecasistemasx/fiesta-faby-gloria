@@ -204,4 +204,46 @@ document.addEventListener("DOMContentLoaded", () => {
         fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
         fire(0.1, { spread: 120, startVelocity: 45 });
     }
+
+    /* ==========================================================================
+       8. Envío de Formulario por AJAX (Sin recargar la página)
+       ========================================================================== */
+    const formulario = document.querySelector(".formulario-rsvp");
+    if (formulario) {
+        formulario.addEventListener("submit", function(e) {
+            e.preventDefault(); // Evita el comportamiento por defecto (pantalla blanca)
+
+            const formData = new FormData(formulario);
+            const botonSubmit = formulario.querySelector("button[type='submit']");
+            const textoOriginal = botonSubmit.innerText;
+            
+            // Estado de carga
+            botonSubmit.innerText = "Enviando...";
+            botonSubmit.disabled = true;
+
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                // Reemplaza el formulario con un mensaje de agradecimiento
+                formulario.innerHTML = `
+                    <div class="text-center" style="padding: 20px 0; animation: aparecerContenido 1s ease;">
+                        <div class="icono-seccion">🎉</div>
+                        <h3 style="color: var(--primary-gold-bright); margin-bottom: 12px; font-family: 'Playfair Display', serif; font-size: 1.8rem;">¡Gracias por confirmar!</h3>
+                        <p style="color: #ffffff; font-size: 1.05rem;">Hemos recibido tu respuesta exitosamente.</p>
+                    </div>
+                `;
+                // Toque extra: lanzar confeti al confirmar
+                dispararConfeti(); 
+            })
+            .catch((error) => {
+                console.error("Error en el envío:", error);
+                botonSubmit.innerText = textoOriginal;
+                botonSubmit.disabled = false;
+                alert("Hubo un problema de conexión al enviar. Por favor, intenta de nuevo.");
+            });
+        });
+    }
 });
