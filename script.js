@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ==========================================================================
        1. Configuración de Fecha y Evento
        ========================================================================== */
-    // Fecha y hora sincronizada con index.html: Domingo 18 de Octubre 2026, 3:00 PM
-    const FECHA_EVENTO = new Date(2026, 9, 18, 15, 0, 0); 
+    // Fecha y hora sincronizada con index.html: Domingo 18 de Octubre 2026, 4:00 PM (16:00 hrs)
+    const FECHA_EVENTO = new Date(2026, 9, 18, 16, 0, 0); 
     const TITULO_EVENTO = "Cumpleaños Faby & Gloria";
     const LUGAR_EVENTO = "Terraza para Eventos, Rep. de Chile #294, La Capacha, Tlaquepaque";
     const DETALLES_EVENTO = "¡Acompáñanos a festejar este día tan especial!";
@@ -129,18 +129,52 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(actualizarContador, 1000);
 
     /* ==========================================================================
-       5. Botón Agregar a Google Calendar
+       5. Botones Agregar a Calendario (Google & Apple/iOS)
        ========================================================================== */
+    const fechaInicio = new Date(FECHA_EVENTO.getTime());
+    const fechaFin = new Date(FECHA_EVENTO.getTime() + (6 * 60 * 60 * 1000)); // +6 horas (4:00 PM a 10:00 PM)
+
+    // A) Google Calendar
     const btnCalendario = document.getElementById("btn-calendario");
     if (btnCalendario) {
-        // Formato ISO para Google Calendar (YYYYMMDDTHHMMSSZ)
-        const fechaInicio = new Date(FECHA_EVENTO.getTime());
-        const fechaFin = new Date(FECHA_EVENTO.getTime() + (5 * 60 * 60 * 1000)); // +5 horas
-
         const formatoGoogle = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
         const urlCalendar = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(TITULO_EVENTO)}&dates=${formatoGoogle(fechaInicio)}/${formatoGoogle(fechaFin)}&details=${encodeURIComponent(DETALLES_EVENTO)}&location=${encodeURIComponent(LUGAR_EVENTO)}`;
-        
         btnCalendario.href = urlCalendar;
+    }
+
+    // B) Apple / iCloud / iOS Calendar (.ics)
+    const btnAppleCalendario = document.getElementById("btn-apple-calendario");
+    if (btnAppleCalendario) {
+        btnAppleCalendario.addEventListener("click", (e) => {
+            e.preventDefault();
+            const formatoICS = (d) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+
+            const icsContent = [
+                "BEGIN:VCALENDAR",
+                "VERSION:2.0",
+                "PRODID:-//Fiesta Cumpleanos//Faby y Gloria//ES",
+                "CALSCALE:GREGORIAN",
+                "METHOD:PUBLISH",
+                "BEGIN:VEVENT",
+                `DTSTAMP:${formatoICS(new Date())}`,
+                `DTSTART:${formatoICS(fechaInicio)}`,
+                `DTEND:${formatoICS(fechaFin)}`,
+                `SUMMARY:${TITULO_EVENTO}`,
+                `DESCRIPTION:${DETALLES_EVENTO}`,
+                `LOCATION:${LUGAR_EVENTO}`,
+                "STATUS:CONFIRMED",
+                "END:VEVENT",
+                "END:VCALENDAR"
+            ].join("\r\n");
+
+            const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute("download", "Fiesta_Faby_y_Gloria.ics");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
     }
 
 
