@@ -256,7 +256,7 @@ function inicializarInvitacion() {
             // 2. Determinar el teléfono destinatario
             let telefono = "523326010534"; // Faby por defecto
             if (anfitrion === "gloria") {
-                telefono = "523317546449"; // Gloria
+                telefono = "523313180063"; // Gloria
             }
 
             // 3. Construir mensaje de WhatsApp
@@ -267,7 +267,7 @@ function inicializarInvitacion() {
                 texto += `😔 Lamentablemente no podré acompañarlas esta vez.`;
             }
             if (comentarios !== "") {
-                texto += `\n🎵 Sugerencia/Comentario: ${comentarios}`;
+                texto += `\n🎵 Canción sugerida: ${comentarios}`;
             }
 
             const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(texto)}`;
